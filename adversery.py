@@ -70,7 +70,7 @@ class adv(entities):
         self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 1
 
     def poach(self):
-        if self.drone_pos[self.cur_x_adv][self.cur_y_adv] == 1:
+        if self.drone_pos[self.cur_y_adv][self.cur_x_adv] == 1:
             #print "Poacher says: Oh no! Drone!!!"
             self.my_target = self.target_pos[random.randint(0,len(self.target_pos)-1)] # changing target to flee from drone
             self.flag = 0
@@ -182,7 +182,7 @@ class adv(entities):
             g_var.fled_poachers += 1
             del self
 
-        elif self.agent_pos[self.cur_x_adv][self.cur_y_adv] == 1: # The End sir!!!
+        elif self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 1: # The End sir!!! grater than or equal two!!
             self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 0
             x_cor = self.cur_x_adv * g_var.block_size
             y_cor = self.cur_y_adv * g_var.block_size
@@ -194,6 +194,9 @@ class adv(entities):
             g_var.arrested_poachers += 1
             g_var.resource_poached -= self.sack
             g_var.resource_recovered += self.sack
+            if self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 2:
+                print "******************* Bishesh vabe mara khelam at: ",
+                print self.cur_y_adv, self.cur_x_adv
             del self
 
         else:

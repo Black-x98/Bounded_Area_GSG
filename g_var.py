@@ -4,7 +4,7 @@ dimension = 10
 bg_color = "#00000F"
 block_size= 40
 movement_limit = 100
-turn_gap_time = 400
+turn_gap_time = 50
 
 arrested_poachers = 0
 fled_poachers = 0

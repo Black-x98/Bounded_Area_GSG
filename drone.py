@@ -25,7 +25,7 @@ class drone(entities):
 
         x_cor = self.cur_x_drone * g_var.block_size
         y_cor = self.cur_y_drone * g_var.block_size
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 1
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 1
         self.canvas.create_oval(x_cor+22,y_cor+10,x_cor+37,y_cor+25,fill=self.drone_color,outline=g_var.bg_color)
 
     def move_drone(self):
@@ -38,7 +38,7 @@ class drone(entities):
         x_cor = self.cur_x_drone * g_var.block_size
         y_cor = self.cur_y_drone * g_var.block_size
         self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=g_var.bg_color,outline=g_var.bg_color)
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 0
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 0
         lower_limit_x = -1
         lower_limit_y = -1
         upper_limit_x = 1
@@ -61,7 +61,7 @@ class drone(entities):
         x_cor = self.cur_x_drone * g_var.block_size
         y_cor = self.cur_y_drone * g_var.block_size
 
-        self.drone_pos[self.cur_x_drone][self.cur_y_drone] = 1 # Marking Drone Position
+        self.drone_pos[self.cur_y_drone][self.cur_x_drone] = 1 # Marking Drone Position
         self.canvas.create_oval(x_cor+22,y_cor+10,x_cor+37,y_cor+25,fill=self.drone_color,outline=g_var.bg_color)
         #if self.adv_pos[self.cur_y_drone][self.cur_x_drone] == 1:
         #if random.randint(0,1) == 1:

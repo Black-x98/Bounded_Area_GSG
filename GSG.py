@@ -68,7 +68,7 @@ class app(Frame):
 
         self.root = Tk()
         self.root.title("Green Security Game")
-        self.root.geometry('640x480+620+120')
+        self.root.geometry('640x480+600+0')
         self.canvas = Canvas(self.root,bg="#333333",height=480,width=640)
         self.canvas.pack()
         Frame.__init__(self)
@@ -179,7 +179,7 @@ for i in range(3,9):
     avg_list = [0.0 for ind in range(num_of_trials)]
     for j in range(num_of_trials):
         gc.collect()
-        app(16,0,1) # parameters: num of adversaries, agents, drones
+        app(20,9,9) # parameters: num of adversaries, agents, drones
 
         avg_list[0] += g_var.arrested_poachers
         avg_list[1] += g_var.fled_poachers
