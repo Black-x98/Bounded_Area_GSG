@@ -28,10 +28,10 @@ class app(Frame):
                 res_label.place(x=i*g_var.block_size+2,y=j*g_var.block_size+2)
 
         self.refresh_counter += 1
-        if self.refresh_counter <= self.refresh_limit:
+        if self.refresh_counter <= g_var.movement_limit:
             #print "working in main refresh " + random.randint(1,50).__str__()
             self.root.after(g_var.turn_gap_time, self.refresh)
-        elif self.refresh_counter > self.refresh_limit:
+        elif self.refresh_counter > g_var.movement_limit:
             print "Caught poachers: " + str(g_var.arrested_poachers), \
             ", Fled poachers: " + str(g_var.fled_poachers), \
             ", Resource poached: " + str(g_var.resource_poached), \
@@ -41,7 +41,7 @@ class app(Frame):
                 object_popped = self.object_list.pop()
                 #print " deleting popped object" + index.__str__() ,
                 del object_popped
-            print "\n"
+            #print "\n"
             self.root.destroy() # Destroys the Tkinter window for this execution
 
 
@@ -60,7 +60,7 @@ class app(Frame):
         g_var.distance_travelled = 0
 
         self.refresh_counter = 0
-        self.refresh_limit = 40
+        #g_var.movement_limit = 100
 
         print "Parameters: adversaries: " + str(g_var.num_of_adverseries),\
         ", agents: " + str(g_var.num_of_agents),\
@@ -140,10 +140,10 @@ class app(Frame):
         for i in range(g_var.num_of_agents):
             sub_y = random.randint(0,2)
             sub_x = random.randint(0,2)
-            while self.subarea_check_agent[sub_y][sub_x] == 1:
+            while self.subarea_check_agent[sub_y][sub_x] >= 1:
                 sub_y = random.randint(0,2)
                 sub_x = random.randint(0,2)
-            self.subarea_check_agent[sub_y][sub_x] = 1
+            self.subarea_check_agent[sub_y][sub_x] += 1
 
             agent_obj = agent(self.canvas, self.root, self.agent_pos, self.cell_resources, self.target_pos, self.round_marking, self.drone_signal, self.subarea_y[sub_y], self.subarea_x[sub_x], self.adv_pos)
             #agent_obj.move_spec_guard()
@@ -153,12 +153,12 @@ class app(Frame):
         for i in range(g_var.num_of_drones):
             sub_y = random.randint(0,2)
             sub_x = random.randint(0,2)
-            while self.subarea_check_drone[sub_y][sub_x] == 1:
+            while self.subarea_check_drone[sub_y][sub_x] >= 1:
                 sub_y = random.randint(0,2)
                 sub_x = random.randint(0,2)
             #sub_y = 1
             #sub_x = 1
-            self.subarea_check_drone[sub_y][sub_x] = 1
+            self.subarea_check_drone[sub_y][sub_x] += 1
 
             drone_obj = drone(self.canvas, self.root, self.drone_pos, self.drone_signal, self.adv_pos, self.subarea_y[sub_y], self.subarea_x[sub_x])
             drone_obj.move_drone()
@@ -172,14 +172,16 @@ class app(Frame):
         self.root.mainloop()
 
 
-for i in range(3,9):
+for i in range(1,9):
 
     num_of_trials = 5
     print "\n***Simulating Green Security Game***\n"
     avg_list = [0.0 for ind in range(num_of_trials)]
+
+
     for j in range(num_of_trials):
         gc.collect()
-        app(20,9,9) # parameters: num of adversaries, agents, drones
+        app(10,i,8) # parameters: num of adversaries, agents, drones
 
         avg_list[0] += g_var.arrested_poachers
         avg_list[1] += g_var.fled_poachers

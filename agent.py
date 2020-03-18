@@ -4,7 +4,7 @@ import g_var
 
 class agent(entities):
 
-    agent_counter = 0
+
     agent_color = "green"
 
     def __init__(self,_canvas,_root,_agent_pos,_cell_resources,_target_pos,_round_marking,_drone_signal,_sub_mult_y,_sub_mult_x, _adv_pos):
@@ -18,6 +18,7 @@ class agent(entities):
         self.sub_mult_y =  _sub_mult_y
         self.sub_mult_x =  _sub_mult_x
         self.adv_pos = _adv_pos
+        self.agent_counter = 0
         #print "The mult y's are: " + str(_sub_mult_y[0]) + ","+ str(_sub_mult_y[1])
 
         # move_spec initilization
@@ -27,9 +28,9 @@ class agent(entities):
             pair = self.round_marking[random.randint(0,len(self.round_marking)-1)]
             self.cur_x_agent = pair[1]
             self.cur_y_agent = pair[0]
-            if self.agent_pos[self.cur_x_agent][self.cur_y_agent]==0:
+            if self.agent_pos[self.cur_y_agent][self.cur_x_agent]==0:
                 break
-        self.agent_pos[self.cur_x_agent][self.cur_y_agent] = 1
+        self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 1
         self.prev_y = -1
         self.prev_x = -1
         self.prev2_y = -1
@@ -63,7 +64,7 @@ class agent(entities):
 
         if self.active_target==True:
             #erasing previous position
-            print "going to drone signalled place <- " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " ->"
+            #print "going to drone signalled place <- " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " ->"
             x_cor = self.cur_x_agent * g_var.block_size
             y_cor = self.cur_y_agent * g_var.block_size
             self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=g_var.bg_color,outline=g_var.bg_color)
@@ -74,13 +75,13 @@ class agent(entities):
             x_cor = self.cur_x_agent * g_var.block_size
             y_cor = self.cur_y_agent * g_var.block_size
 
-            print "drawing agent at " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " "
+            #print "drawing agent at " + str(self.my_target[0]) + "," + str(self.my_target[1]) + " "
             self.canvas.create_polygon(x_cor+15,y_cor+20,x_cor+15,y_cor+35,x_cor+30,y_cor+35,x_cor+30,y_cor+20,fill=self.agent_color)
-            self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 2
+            self.agent_pos[self.cur_y_agent][self.cur_x_agent] = 3
 
-            if self.adv_pos[self.cur_y_agent][self.cur_x_agent] == 1:
+            '''if self.adv_pos[self.cur_y_agent][self.cur_x_agent] == 1: # jawar pore 
                 print "Shabbash drone er baccha!!! Signal shune dhoira falaisi poacher re at: ",
-                print self.cur_y_agent, self.cur_x_agent
+                print self.cur_y_agent, self.cur_x_agent'''
 
             self.agent_counter += 1
             g_var.distance_travelled += 1

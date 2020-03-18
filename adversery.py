@@ -23,7 +23,7 @@ class adv(entities):
         self.escape_y = 0
         # flag values mean different mode of drones
         self.sack = 0
-        self.sack_limit = 40
+        self.sack_limit = 10
 
         set = {0, g_var.dimension - 1}
         if random.randint(0,1)==0:
@@ -73,8 +73,7 @@ class adv(entities):
         if self.drone_pos[self.cur_y_adv][self.cur_x_adv] == 1:
             #print "Poacher says: Oh no! Drone!!!"
             self.my_target = self.target_pos[random.randint(0,len(self.target_pos)-1)] # changing target to flee from drone
-            self.flag = 0
-            
+            self.flag = 0 # if spots drone, poacher flees in case of sound signalling'''
         if self.sack < self.sack_limit and self.cell_resources[self.cur_y_adv][self.cur_x_adv]>0:  # resource value update
             self.sack += 1
             g_var.resource_poached += 1
@@ -165,6 +164,10 @@ class adv(entities):
         self.flag = 5
         #print "The poacher JUST ESCAPED!!!***************"
 
+    def daray_thako(self):
+        yyy = 0
+        yyy += 1
+        yyy -= 1
 
     def operate_adv(self):
         self.adv_move_counter += 1
@@ -176,13 +179,14 @@ class adv(entities):
             self.fix_escape_point()
         if self.flag == 3:
             self.flee_adv()
+            #self.daray_thako()
         if self.flag == 4:
             self.escape()
         if self.flag == 5:
             g_var.fled_poachers += 1
             del self
 
-        elif self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 1: # The End sir!!! grater than or equal two!!
+        elif self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 1: # The End sir!!! greater than or equal one!!
             self.adv_pos[self.cur_y_adv][self.cur_x_adv] = 0
             x_cor = self.cur_x_adv * g_var.block_size
             y_cor = self.cur_y_adv * g_var.block_size
@@ -194,9 +198,9 @@ class adv(entities):
             g_var.arrested_poachers += 1
             g_var.resource_poached -= self.sack
             g_var.resource_recovered += self.sack
-            if self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 2:
+            '''if self.agent_pos[self.cur_y_adv][self.cur_x_adv] >= 2: # print indicates the capture by signal-drawn guard
                 print "******************* Bishesh vabe mara khelam at: ",
-                print self.cur_y_adv, self.cur_x_adv
+                print self.cur_y_adv, self.cur_x_adv'''
             del self
 
         else:
